@@ -47,7 +47,7 @@ void setup() {
   //println(displayWidth, displayHeight); //Inspection of Variables
   //size(); //width //height
   fullScreen(); //displayWidth //displayHeight
-  appWidth = displayWidth;
+  appWidth = displayWidth; //Best Practice
   appHeight = displayHeight;
   //
   divs();
