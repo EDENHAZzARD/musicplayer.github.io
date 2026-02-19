@@ -1,7 +1,7 @@
 MusicPlayer player; // Declare a global MusicPlayer object
 
 void setup() {
-  size(800, 600); // Set the canvas size to 800x600
+  size(800, 1000); // Set the canvas size to 800x600
   player = new MusicPlayer(); // Initialize the MusicPlayer object
 }
 
@@ -40,7 +40,7 @@ class MusicPlayer {
     background(200); // Clear the screen with a gray background
 
     // Draw the Exit button as a square
-    fill(255, 0, 0); // Red color
+    fill(254, 0, 0); // Red color
     rect(exitButtonX, exitButtonY, buttonSize, buttonSize, 5); // Square with rounded corners
     fill(255); // White color for the "X"
     textAlign(CENTER, CENTER);
@@ -56,7 +56,7 @@ class MusicPlayer {
 
     // Draw the square in the middle if the flag is true
     if (drawSquare) {
-      fill(0, 255, 0); // Green color
+      fill(0, 50, 50); // Green color
       rect(width / 2 - 50, height / 2 - 50, 100, 100); // Square centered in the canvas
     }
   } // End Draw
