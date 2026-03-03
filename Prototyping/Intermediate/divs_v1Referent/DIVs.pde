@@ -13,12 +13,30 @@ void divs() {
   //
   // Primitive Style Reading, note float-arithmetic might require casting
   //Counting in Groups of 4, based on rect() object
-  divs[0] = appWidth*1/4 ;
-  divs[1] = appHeight*1/4 ; //i++ fails in array
-  divs[2] = appWidth*1/2 ;
+  for ( int i=0; i<4; i++) {
+    if ( i%4==0 ) {
+      divs[i] = appWidth*1/4;
+    }
+    if ( i%4==1 ) {
+      divs[i] = appHeight*1/4;
+    }
+    if ( i%4==2 ) {
+      divs[i] = appWidth*1/2;
+    }
+    if ( i%4==3 ) {
+      divs[i] = appHeight*1/2;
+    }
+    //
+    //Building 4 VARs at a time
+    //int i=0; i<4; i++
+  }
+  printArray(divs);
+  //divs[0] = appWidth*1/4 ;
+  //divs[1] = appHeight*1/4 ; //i++ fails in array
+  //divs[2] = appWidth*1/2 ;
   //
   //Develop a Grid based on the smallest DIV or measure
-  //Music BUttons across the Width of Music Player space
+  //Music Buttons across the Width of Music Player space
   float referent = divs[2] / 13;
   float column1 = divs[0] + referent;
   float row1 = divs[1] + referent;
@@ -32,7 +50,8 @@ void divs() {
   float row2 = row1 + textHeight + referent*1/2;
   float row3 = row2 + referent + referent*1/2;
   //
-  divs[3] = appHeight*1/2 ;
+  //divs[3] = appHeight*1/2 ;
+  
   //Media Calculation ERROR
   float testHeight = referent*2.5 + textHeight*2;
   float errorIncrease = referent*1/2;
@@ -41,6 +60,7 @@ void divs() {
     divs[1] -= errorIncrease; //Move Y-start up
     row1 = divs[1] + referent;
     row2 = row1 + textHeight + referent*1/2;
+    row3 = row2 + referent + referent*1/2;
     divs[3] += errorIncrease; //Increase height
   }
   //

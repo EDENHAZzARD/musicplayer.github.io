@@ -59,6 +59,7 @@ void setup() {
   //
   //GUI based on a grid using a referent measure (identifying columns & rows, X&Y)
   divs();
+  seeDIVasRect();
 } //End setup
 //
 void draw() {

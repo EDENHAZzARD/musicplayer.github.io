@@ -13,7 +13,7 @@
  - Libraries add specific functions to ease programming burdon
  - Must add some libraries in the IDE and the code, like Minim
  - Global Varaibles on harddrive used throuhgout the program sections
-
+ 
  
  - Once setup() is done, draw() starts looping
  - Can temporarily pause draw() with noLoop() & loop() to wait (behind booleans or interactions)
@@ -27,6 +27,7 @@
 //
 //Global Variables
 int appWidth, appHeight;
+Boolean musicGUI=false;
 //
 /* Optional Code based on Monitor, not fullScreen()
  void settings() {
@@ -59,15 +60,49 @@ void setup() {
   //
   //GUI based on a grid using a referent measure (identifying columns & rows, X&Y)
   divs();
+  //ErrorCheck("End Setup Music GUI set:", musicGUI);
 } //End setup
 //
 void draw() {
+  //
+  //Activate Music GUI
+  //ErrorCheck("draw() Music GUI set:", musicGUI);
+  if ( musicGUI==true ) {
+    seeMusicGUI();
+  } else {
+    background(0);
+  }
+  seeQuitMusicButton();
+  //
 } //End draw
 //
 void mousePressed() {
+  //ERROR Check NUM below
+  //int num=8; //ERROR Check i%4=0, int(i/4)=3, num=8
+  //println(divs[num], divs[num+1], divs[num+2], divs[num+3]);
+  //
+  //mouseX>divs[num] && mouseX<divs[num]+divs[num+2] && mouseY>divs[num+1] && mouseY<divs[num+1]+divs[num+3]
+  //CAUTION: IF Statements will execute each time
+  //Note: easily used with COPY & PASTE
+  int num=4;
+  if ( mouseX>divs[num] && mouseX<divs[num]+divs[num+2] && mouseY>divs[num+1] && mouseY<divs[num+1]+divs[num+3] ) exit();
+  num=8;
+  if ( mouseX>divs[num] && mouseX<divs[num]+divs[num+2] && mouseY>divs[num+1] && mouseY<divs[num+1]+divs[num+3] ) musicGUI = varSwitch(musicGUI);
 } //End Mouse Pressed
 //
 void keyPressed() {
+  //key=='CAP' || key=='LOWER' //Note" Caps Lock
+  //key==CODED || keyCode==ESC //Special Keys
+  if (key==CODED || keyCode==ESC) exit();
+  if (key=='Q' || key=='q') exit();
+  if (key=='M' || key=='m') musicGUI = varSwitch(musicGUI);
 } //End Key Pressed
+Boolean varSwitch(Boolean variable) {
+  if ( variable==true ) {
+    return variable=false;
+  } else {
+    return variable=true;
+  }
+}
 //
 //End MAIN Program
