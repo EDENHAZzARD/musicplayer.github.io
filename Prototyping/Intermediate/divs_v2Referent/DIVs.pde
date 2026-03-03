@@ -29,7 +29,7 @@ void divs() {
   float column4 = column3 + referent;
   float column5 = column4 + referent;
   float column6 = column5 + referent*2;
-  println( column1, column2, column3, column4, column5, column6 );
+  //println( column1, column2, column3, column4, column5, column6 );
   float row2 = row1 + textHeight + referent*1/2;
   float row3 = row2 + referent + referent*1/2;
   //
