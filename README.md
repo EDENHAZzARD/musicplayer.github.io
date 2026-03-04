@@ -1,8 +1,8 @@
-# musicplayer.github.io
-CLass lessons gato
+# Music Player
+Class Lessons
 
-### to do list
-[x] Make a To Do List
+### To Do List
+- [x] Make a To Do List
 - [x] Create repo folders
 - [ ] Bring Music: https://studio.youtube.com/channel/UCkhFasU2ZSgusy_b1l4bcHg/music
 - [ ] Bring old music player
@@ -15,7 +15,5 @@ CLass lessons gato
    - Preferences (repeat on, last song played, shuffle on)
    - When can the music button be activated (or not activated)
 - [ ] TBA
-bring eden hazard back to chelsea
 
-
-
+---
