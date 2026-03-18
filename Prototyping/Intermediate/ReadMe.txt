@@ -49,4 +49,6 @@ v5: Polynomials Introduction
 ---
 
 NEXT 2D Music Shapes
+- What did the Library of Music Shapes do in CS10
+- What is the procedure doing in CS20
 

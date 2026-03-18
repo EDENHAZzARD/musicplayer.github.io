@@ -1,12 +1,22 @@
 
-DIVs
-- println(): multiple lines reduced to a multiple param println accessed in .draw(), through setup() and draw()
-- create procedure for rect(), repeated for as many rectangles in music program (include QUIT & ACTIVATION as part of music player
+Hello World
+- Basic Class
+- println("Hello World")
 
-Delete
-void draw() {
-    println(". Hello World");
-  }//End Draw
-void helloWorld() {
-    println("2. Hello World");
-  }//End Hello World
+Why all the Code: intro an object knowing it's own code, then creating multiple objects in the DRIVER
+
+---
+
+Music Player 
+- Prototyped Class
+- Anonymous Class for single object in hierarchy 
+
+** Move menu when dragging a specific box in the Music Player, saved for a later time
+
+---
+
+DIVs
+- Prototyped in Procedures
+- rect() with input control to menu
+
+Loading Music

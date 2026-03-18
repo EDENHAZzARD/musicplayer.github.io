@@ -1,3 +1,8 @@
+Boolean Procedure for Boolean MousePressed conditional
+
+
+---
+
 BoilerPlate with Settings ( MrM using fullScreen() )
 
 Intermediate Code Structures so far
