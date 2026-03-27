@@ -13,11 +13,11 @@ void setup() {
   drawMusicDivs( musicButtonDivX[0], randomButtonY, randomButtonDimension );
   drawMusicDivs( musicButtonDivX, buttonY, buttonWidth );
   //
-  musicSymbol( 1, musicButtonDivX[1], buttonY, buttonWidth );
-  musicSymbol( 2, musicButtonDivX[2], buttonY, buttonWidth );
-  musicSymbol( 6, musicButtonDivX[6], buttonY, buttonWidth );
-  musicSymbol( 7, musicButtonDivX[7], buttonY, buttonWidth );
-  musicSymbol( 8, musicButtonDivX[8], buttonY, buttonWidth );
+  //Simple FOR Drawing all Buttons
+  for ( int i=0; i<musicButtonDivX.length; i++ ) {
+    if (i==0) musicSymbol( 0, musicButtonDivX[0], randomButtonY, randomButtonDimension );
+    if ( i!=0 ) musicSymbol( i, musicButtonDivX[i], buttonY, buttonWidth );
+  }
   //
 }//End Setup
 //

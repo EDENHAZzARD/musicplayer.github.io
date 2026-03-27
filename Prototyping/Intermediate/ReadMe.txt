@@ -48,7 +48,19 @@ v5: Polynomials Introduction
 
 ---
 
-NEXT 2D Music Shapes
+v6?
+
+---
+
+NEXT 2D Music Symbols
 - What did the Library of Music Shapes do in CS10
 - What is the procedure doing in CS20
+
+---
+
+NEXT Images
+- loading files
+- error catches
+- algorithm for aspect ratio based on code, summary
+  What does each line do
 

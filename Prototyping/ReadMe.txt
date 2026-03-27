@@ -1,5 +1,8 @@
 Boolean Procedure for Boolean MousePressed conditional
 
+Static Two Images 
+Bolierplate keyPressed() multiple images with imageErrr
+- Add infinite while loop error
 
 ---
 
