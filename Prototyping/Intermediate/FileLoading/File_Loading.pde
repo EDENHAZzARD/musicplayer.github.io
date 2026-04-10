@@ -48,6 +48,7 @@ void fileReading(String directory) {
   //ErrorCheck("Inspect Variable, File Loading / fileReading()", files);
 } //End File Reading Loading
 //
+
 void imageLoading(String[] files) {
   imagesPlayList = new PImage[numberOfFiles]; //sets the array length
   int fileNumber=0;
