@@ -1,249 +1,233 @@
+/* ========= MUSIC PLAYER ========= */
+
 import ddf.minim.*;
-import ddf.minim.analysis.*;
-import ddf.minim.effects.*;
-import ddf.minim.signals.*;
-import ddf.minim.spi.*;
-import ddf.minim.ugens.*;
-/* Creating Buttons - HoverOver in draw()
- - draw() updates mouseX&Y 60x per second
- - CANVAS repeats all code like a flipbook
- 
- - Code explored:
- - If-Else
- - Hover Effects
- - Buttons
- 
- - Next:
- - Music Dynamic v2
-*/
 
-//
-// Global Variables
-//
-int appWidth, appHeight;
+Minim minim;
 
-float quitDivX, quitDivY, quitDivWidth, quitDivHeight;
-float playDivX, playDivY, playDivWidth, playDivHeight;
+PImage kanye;
 
-float playSymbolX1, playSymbolY1;
-float playSymbolX2, playSymbolY2;
-float playSymbolX3, playSymbolY3;
+AudioPlayer[] songs;
 
-boolean playButton = false;
-boolean quitButton = false;
-boolean nightMode = false;
+int currentSong = 0;
 
-color resetBackground, resetInk;
-color resetBackgroundDay, resetInkDay;
-color resetBackgroundNight, resetInkNight;
+float playX, playY;
+float nextX, backX;
+float plusX, minusX;
+float shuffleX;
 
-color quitButtonInk;
+boolean playButton;
+boolean nextButton;
+boolean backButton;
+boolean plusButton;
+boolean minusButton;
+boolean shuffleButton;
+boolean quitButton;
 
-color playColourBackground;
-color playColourSymbol;
-color playColourBackgroundActivated;
-color playColourSymbolActivated;
-
-color quitBackground;
-color quitBackgroundActivated;
 
 //
 // SETUP
 //
 void setup() {
 
-  size(500, 400);
+  fullScreen();
 
-  appWidth = width;
-  appHeight = height;
+  minim = new Minim(this);
 
-  //
-  // Button Sizes and Positions
-  //
-  quitDivX = appWidth * 9/10;
-  quitDivY = 0;
-  quitDivWidth = appWidth * 1/10;
-  quitDivHeight = appHeight * 1/10;
-
-  playDivX = appWidth * 4/10;
-  playDivY = appHeight * 4.5/10;
-  playDivWidth = appWidth * 2/10;
-  playDivHeight = appHeight * 1/10;
+  kanye = loadImage("kanye.png");
 
   //
-  // Play Symbol Coordinates
+  // LOAD SONGS
   //
-  playSymbolX1 = playDivX + playDivWidth * 1/4;
-  playSymbolY1 = playDivY + playDivHeight * 1/4;
+  songs = new AudioPlayer[] {
 
-  playSymbolX2 = playSymbolX1 + playDivWidth * 1/2;
-  playSymbolY2 = playDivY + playDivHeight * 1/2;
-
-  playSymbolX3 = playSymbolX1;
-  playSymbolY3 = playDivY + playDivHeight * 3/4;
+    minim.loadFile("Beat_Your_Competition.mp3"),
+    minim.loadFile("Cycles.mp3"),
+    minim.loadFile("Eureka.mp3"),
+    minim.loadFile("Ghost_Walk.mp3"),
+    minim.loadFile("groove.mp3"),
+    minim.loadFile("Newsroom.mp3"),
+    minim.loadFile("ping-pong-classic-arcade-game-116818.mp3"),
+    minim.loadFile("Pong World.mp3"),
+    minim.loadFile("Start_Your_Engines.mp3"),
+    minim.loadFile("The_Simplest.mp3")
+  };
 
   //
-  // Text Settings
+  // BUTTON POSITIONS
   //
+  playX = width/2 - 100;
+  playY = height - 140;
+
+  backX = playX - 140;
+  nextX = playX + 220;
+
+  minusX = backX - 170;
+  plusX = nextX + 140;
+
+  shuffleX = width/2 - 110;
+
   textAlign(CENTER, CENTER);
-  textSize(24);
-
-  //
-  // Colours
-  //
-  color black = 0;
-  color white = 255;
-
-  color grayScale = 128;
-  color gray = #B9B9B9;
-
-  color red = #FF0000;
-  color purple = #9D03FF;
-  color yellow = #FFFF00;
-
-  //
-  // Day/Night Colours
-  //
-  resetBackgroundDay = white;
-  resetInkDay = black;
-
-  resetBackgroundNight = 64;
-  resetInkNight = 192;
-
-  //
-  // Night Mode
-  //
-  if (nightMode) {
-
-    resetBackground = resetBackgroundNight;
-    resetInk = resetInkNight;
-
-    playColourBackground = grayScale;
-    playColourSymbol = gray;
-
-    playColourBackgroundActivated = gray;
-    playColourSymbolActivated = grayScale;
-
-    quitBackground = gray;
-    quitBackgroundActivated = red;
-
-    quitButtonInk = grayScale;
-
-  } else {
-
-    resetBackground = resetBackgroundDay;
-    resetInk = resetInkDay;
-
-    playColourBackground = purple;
-    playColourSymbol = yellow;
-
-    playColourBackgroundActivated = yellow;
-    playColourSymbolActivated = purple;
-
-    quitBackground = white;
-    quitBackgroundActivated = red;
-
-    quitButtonInk = black;
-  }
 }
+
 
 //
 // DRAW
 //
 void draw() {
 
-  //
-  // Clears old frames
-  //
-  background(resetBackground);
+  background(0);
 
   //
-  // PLAY BUTTON HOVER
+  // IMAGE
   //
-  if (mouseX > playDivX &&
-      mouseX < playDivX + playDivWidth &&
-      mouseY > playDivY &&
-      mouseY < playDivY + playDivHeight) {
+  imageMode(CENTER);
 
-    playButton = true;
-
-  } else {
-
-    playButton = false;
-  }
-
-  //
-  // Draw Play Button
-  //
-  if (playButton) {
-
-    fill(playColourBackgroundActivated);
-
-  } else {
-
-    fill(playColourBackground);
-  }
-
-  rect(playDivX, playDivY, playDivWidth, playDivHeight);
-
-  //
-  // Draw Play Symbol
-  //
-  if (playButton) {
-
-    fill(playColourSymbolActivated);
-
-  } else {
-
-    fill(playColourSymbol);
-  }
-
-  triangle(
-    playSymbolX1, playSymbolY1,
-    playSymbolX2, playSymbolY2,
-    playSymbolX3, playSymbolY3
+  image(
+    kanye,
+    width/2,
+    height/2 - 100,
+    300,
+    300
   );
 
   //
-  // QUIT BUTTON HOVER
+  // TITLE
   //
-  if (mouseX > quitDivX &&
-      mouseX < quitDivX + quitDivWidth &&
-      mouseY > quitDivY &&
-      mouseY < quitDivY + quitDivHeight) {
+  fill(255);
 
-    quitButton = true;
-
-  } else {
-
-    quitButton = false;
-  }
-
-  //
-  // Draw Quit Button
-  //
-  if (quitButton) {
-
-    fill(quitBackgroundActivated);
-
-  } else {
-
-    fill(quitBackground);
-  }
-
-  rect(quitDivX, quitDivY, quitDivWidth, quitDivHeight);
-
-  //
-  // Draw X
-  //
-  fill(quitButtonInk);
+  textSize(45);
 
   text(
-    "X",
-    quitDivX + quitDivWidth/2,
-    quitDivY + quitDivHeight/2
+    "NOW PLAYING",
+    width/2,
+    80
   );
+
+  textSize(30);
+
+  text(
+    "Song " + (currentSong + 1),
+    width/2,
+    140
+  );
+
+  //
+  // HOVER
+  //
+  playButton = over(playX, playY, 200, 80);
+
+  backButton = over(backX, playY, 120, 80);
+
+  nextButton = over(nextX, playY, 120, 80);
+
+  minusButton = over(minusX, playY, 150, 80);
+
+  plusButton = over(plusX, playY, 150, 80);
+
+  shuffleButton =
+    over(shuffleX, playY-120, 220, 80);
+
+  quitButton =
+    over(width-90, 10, 80, 60);
+
+  //
+  // BUTTONS
+  //
+  button(minusX, playY, 150, 80, "-10s", minusButton);
+
+  button(backX, playY, 120, 80, "<<", backButton);
+
+  button(nextX, playY, 120, 80, ">>", nextButton);
+
+  button(plusX, playY, 150, 80, "+10s", plusButton);
+
+  button(shuffleX, playY-120, 220, 80,
+    "SHUFFLE", shuffleButton);
+
+  //
+  // PLAY BUTTON
+  //
+  fill(playButton ? #FFFF00 : #9D03FF);
+
+  rect(playX, playY, 200, 80, 20);
+
+  fill(0);
+
+  //
+  // PAUSE ICON
+  //
+  if (songs[currentSong].isPlaying()) {
+
+    rect(playX+65, playY+15, 20, 50);
+
+    rect(playX+115, playY+15, 20, 50);
+
+  } else {
+
+    //
+    // PLAY ICON
+    //
+    triangle(
+      playX+70, playY+15,
+      playX+140, playY+40,
+      playX+70, playY+65
+    );
+  }
+
+  //
+  // QUIT BUTTON
+  //
+  fill(quitButton ? #FF0000 : 255);
+
+  rect(width-90, 10, 80, 60, 10);
+
+  fill(0);
+
+  text("X", width-50, 40);
 }
+
+
+//
+// BUTTON FUNCTION
+//
+void button(
+  float x,
+  float y,
+  float w,
+  float h,
+  String words,
+  boolean hover
+) {
+
+  fill(hover ? #FFFF00 : #9D03FF);
+
+  rect(x, y, w, h, 20);
+
+  fill(0);
+
+  textSize(28);
+
+  text(words, x+w/2, y+h/2);
+}
+
+
+//
+// HOVER FUNCTION
+//
+boolean over(
+  float x,
+  float y,
+  float w,
+  float h
+) {
+
+  return
+    mouseX > x &&
+    mouseX < x+w &&
+    mouseY > y &&
+    mouseY < y+h;
+}
+
 
 //
 // MOUSE PRESSED
@@ -251,27 +235,101 @@ void draw() {
 void mousePressed() {
 
   //
-  // Quit Button
-  //
-  if (quitButton) {
-
-    println("Closing Program");
-
-    noLoop();
-    exit();
-  }
-
-  //
-  // Play Button
+  // PLAY / PAUSE
   //
   if (playButton) {
 
-    println("Play My Song");
-  }
-}
+    if (songs[currentSong].isPlaying()) {
 
-//
-// KEY PRESSED
-//
-void keyPressed() {
+      songs[currentSong].pause();
+
+    } else {
+
+      songs[currentSong].play();
+    }
+  }
+
+  //
+  // NEXT
+  //
+  if (nextButton) {
+
+    songs[currentSong].pause();
+
+    songs[currentSong].rewind();
+
+    currentSong++;
+
+    if (currentSong >= songs.length) {
+
+      currentSong = 0;
+    }
+
+    songs[currentSong].play();
+  }
+
+  //
+  // BACK
+  //
+  if (backButton) {
+
+    songs[currentSong].pause();
+
+    songs[currentSong].rewind();
+
+    currentSong--;
+
+    if (currentSong < 0) {
+
+      currentSong = songs.length - 1;
+    }
+
+    songs[currentSong].play();
+  }
+
+  //
+  // SHUFFLE
+  //
+  if (shuffleButton) {
+
+    songs[currentSong].pause();
+
+    songs[currentSong].rewind();
+
+    currentSong =
+      int(random(songs.length));
+
+    songs[currentSong].play();
+  }
+
+  //
+  // -10 SECONDS
+  //
+  if (minusButton) {
+
+    songs[currentSong].cue(
+      max(
+        0,
+        songs[currentSong].position()-10000
+      )
+    );
+  }
+
+  //
+  // +10 SECONDS
+  //
+  if (plusButton) {
+
+    songs[currentSong].cue(
+      songs[currentSong].position()+10000
+    );
+  }
+
+  //
+  // QUIT
+  //
+  if (quitButton) {
+
+    exit();
+  }
 }
